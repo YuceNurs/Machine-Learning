@@ -1,0 +1,19 @@
+cart_model.get_params()
+cart_params ={'max_depth': range(1,11),
+              'min_samples_split': range(2,20)}
+
+cart_best_grid =GridSearchCV(cart_model,cart_params, cv =5, n_jobs=-1,verbose = True).fit(X,y)
+cart_best_grid.best_params_
+cart_best_grid.best_score_
+
+random = X.sample(1,random_state=45)
+cart_best_grid.predict(random)
+
+##final modeli
+cart_final =DecisionTreeClassifier(**cart_best_grid.best_params_,random_state =17).fit(X,y)
+cart_final.get_params()
+cart_final=cart_model.set_params(**cart_best_grid.best_params_).fit(X,y)
+
+## final hatasınabakalım
+cv_results = cross_validate(cart_final, X, y, cv=5, scoring=["accuracy","f1","roc_auc"])
+## %75
