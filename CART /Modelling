@@ -1,1 +1,64 @@
 
+df = pd.read_csv("C:\Program Files\python\diabetes\diabetes.csv")
+y= df["Outcome"]
+X = df.drop(["Outcome"], axis=1)
+
+cart_model= DecisionTreeClassifier(random_state=1).fit(X,y)
+
+
+#condusion matrix için y_pred:
+y_pred=cart_model.predict(X)
+
+#AUC için y_prob
+y_prob = cart_model.predict_proba(X)[:,1]
+
+#confusion matrix:
+
+print(classification_report(y,y_pred))
+
+# Bir sorun var model için holdout başarı değerlendiremesi yapalım
+
+X_train, X_test , y_train, y_test = train_test_split(X,y,test_size=0.30, random_state=17)
+cart_model=DecisionTreeClassifier(random_state=17).fit(X_train, y_train)
+
+# train hatası
+y_pred=cart_model.predict(X_train)
+y_prob=cart_model.predict_proba(X_train)[:,1]
+print(classification_report(y_train,y_pred))
+roc_auc_score(y_train, y_prob)
+
+# TEst hatası
+y_pred=cart_model.predict(X_test)
+y_prob=cart_model.predict_proba(X_test)[:,1]
+print(classification_report(y_test,y_pred))
+roc_auc_score(y_test, y_prob)
+#%67 hata düşürmek için randem_state yükseltelim
+
+X_train, X_test , y_train, y_test = train_test_split(X,y,test_size=0.30, random_state=45)
+cart_model=DecisionTreeClassifier(random_state=17).fit(X_train, y_train)
+
+# train hatası
+y_pred=cart_model.predict(X_train)
+y_prob=cart_model.predict_proba(X_train)[:,1]
+print(classification_report(y_train,y_pred))
+roc_auc_score(y_train, y_prob)
+
+# TEst hatası
+y_pred=cart_model.predict(X_test)
+y_prob=cart_model.predict_proba(X_test)[:,1]
+print(classification_report(y_test,y_pred))
+roc_auc_score(y_test, y_prob)
+
+# %65
+# model overfitted 
+
+#Çapraz değerlendirmeye al
+#.fit(X,y)
+
+cart_model=DecisionTreeClassifier(random_state=17)
+cv_results = cross_validate(cart_model, X, y, cv=5, scoring=["accuracy","f1","roc_auc"])
+cv_results['test_accuracy'].mean()
+cv_results['test_f1'].mean()
+cv_results['test_roc_auc'].mean()
+
+# değişkenleri optimize ederek değer düşür.
