@@ -1,7 +1,0 @@
-
-def tree_graph(model,col_names, file_name ):
-    tree_str= export_graphviz(model, feature_names=col_names, filled=True, out_file=None)
-    graph= pydotplus.graph_from_dot_data(tree_str)
-    graph.write_png(file_name)
-
-tree_graph(model=cart_final, col_names=X.columns, file_name="cart_final.png")
