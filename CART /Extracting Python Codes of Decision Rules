@@ -1,0 +1,24 @@
+print(skompile(cart_final.predict).to('python/code'))
+
+print(skompile(cart_model.predict).to('sqlalchemy/sqlite'))
+
+print(skompile(cart_final.predict).to('excel'))
+#python kodları ile fonksiyon oluşturduk
+def predict_with_rules(x):
+    return((((((0 if x[0] <= 7.5 else 1) if x[5] <= 30.949999809265137 else 0 if x[6] <=
+    0.5005000084638596 else 0) if x[5] <= 45.39999961853027 else 1 if x[2] <=
+    99.0 else 0) if x[7] <= 28.5 else (1 if x[5] <= 9.649999618530273 else
+    0) if x[5] <= 26.350000381469727 else (1 if x[1] <= 28.5 else 0) if x[1
+    ] <= 99.5 else 0 if x[6] <= 0.5609999895095825 else 1) if x[1] <= 127.5
+     else (((0 if x[5] <= 28.149999618530273 else 1) if x[4] <= 132.5 else
+    0) if x[1] <= 145.5 else 0 if x[7] <= 25.5 else 1 if x[7] <= 61.0 else
+    0) if x[5] <= 29.949999809265137 else ((1 if x[2] <= 61.0 else 0) if x[
+    7] <= 30.5 else 1 if x[6] <= 0.4294999986886978 else 1) if x[1] <=
+    157.5 else (1 if x[6] <= 0.3004999905824661 else 1) if x[4] <= 629.5 else 0
+    ))
+
+X.columns
+#değer vererek fonksiyonu deneyelim
+x=[12,13,20,23,4,55,12,7]
+predict_with_rules(x)
+print(predict_with_rules(x))
