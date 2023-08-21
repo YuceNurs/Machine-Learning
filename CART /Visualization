@@ -7,3 +7,7 @@ def tree_graph(model,col_names, file_name ):
     graph.write_png(file_name)
 
 tree_graph(model=cart_final, col_names=X.columns, file_name="cart_final.png")
+
+#ağaç için karar kuralları 
+tree_rules = export_text(cart_final, feature_names=list(X.columns))
+print(tree_rules)
